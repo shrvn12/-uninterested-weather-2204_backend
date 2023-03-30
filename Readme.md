@@ -112,8 +112,8 @@ Basic API endpoint = `https://tooth-tracker.cyclic.app/`.
     ```
 
 - DB Operations
+    - **Important** - This operation has access to complete database, be careful while using this route
     - URL: `https://tooth-tracker.cyclic.app/admin/query`
-    **Important** - This operation has access to complete database, be careful while using this route
     - Parameters:
     ```
     {
