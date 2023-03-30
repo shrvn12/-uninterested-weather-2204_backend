@@ -11,6 +11,9 @@ adminRouter.use(authenticate(`admin`));
 
 adminRouter.get('/query',(req,res) => {
     const query = req.body.query;
+    if(!query){
+        res.status(404).send({msg:`Pass your query inside an object with key as 'query'`});
+    }
     connection.query(query, function(err,rows,fields){
         if(err){
             console.log(err);
