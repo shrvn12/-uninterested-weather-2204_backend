@@ -4,6 +4,14 @@
 ## 1. Overview
 
 Basic API endpoint = `https://tooth-tracker.cyclic.app/`.
+All requests must be secure, i.e. `https`, not `http`.
+
+## 2. Authentication
+- This API uses Role based authrization.
+- In order to perform user or admin operations, Token is required.
+- Token can be obtained by creating account and logging in to the system.
+- No saperate login routes for users and admins.
+- System Redirects users/admins to respective locations i'e users landing page or admin page according to user role in DB.
 
 ## 2. User
 - Registration
@@ -36,7 +44,7 @@ Basic API endpoint = `https://tooth-tracker.cyclic.app/`.
     }
     ```
     - Responses
-        - 200 (Ok): `{msg: Login successful as ${user.role}}`
+        - 200 (Ok): `{msg: Login successful as 'role', role: 'role'}`
         - 401 (account does not exists): `{"msg": "Account does not exists"}`
         - 401 (missing credentails): `{"msg": "Please provide, e-mail & Password"}`
         - 411 (invalid credentails): `{"msg": "Password must be of length 5"}`
