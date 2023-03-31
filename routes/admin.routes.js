@@ -9,7 +9,7 @@ const system=new ScheduleSystem();
 
 adminRouter.use(authenticate(`admin`));
 
-adminRouter.get('/query',(req,res) => {
+adminRouter.post('/query',(req,res) => {
     const query = req.body.query;
     if(!query){
         res.status(404).send({msg:`Pass your query inside an object with key as 'query'`});
@@ -32,6 +32,16 @@ adminRouter.get('/users',async (req, res) => {
         res.status(200).send(rows);
     })
     
+})
+
+adminRouter.get('/allSLots',async (req, res) => {
+    connection.query('select * from slots;',(error, rows) => {
+        if(error){
+            console.log(error);
+            return res.status(500).send({msg: `Something went wrong`, err: err.msg});
+        }
+        res.send(rows);
+    })
 })
 
 adminRouter.delete('/deleteuser/:id',userValidator ,(req,res) => {

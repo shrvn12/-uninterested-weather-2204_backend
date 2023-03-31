@@ -16,6 +16,7 @@
 ## 2. User
 - Registration
     - URL: `https://tooth-tracker.cyclic.app/register`
+    - Method: POST
     - Parameters:
     ```
     {
@@ -36,6 +37,7 @@
 
 - Login
     - URL: `https://tooth-tracker.cyclic.app/login`
+    - Method: POST
     - Parameters:
     ```
     {
@@ -51,16 +53,19 @@
 
 - Check Providers
     - URL: `https://tooth-tracker.cyclic.app/doctors`
+    - Method: GET
     - Parameters: none
     - Response: `[doctor's data...]`
 
 - Check Slots
     - URL: `https://tooth-tracker.cyclic.app/slots`
+    - Method: GET
     - Parameters: none
     - Response: `[slot's data...]`
 
 - Get slot Cost
     - URL: `https://tooth-tracker.cyclic.app/getCost/:sLotId`
+    - Method: GET
     - Parameters: Slot Id as params
     - Responses:
         - 404 (Not Found): `{msg: 'Slot not available'}`
@@ -68,6 +73,7 @@
 
 - Book Appointment
     - URL: `https://tooth-tracker.cyclic.app/newMeeting`
+    - Method: POST
     - Parameters:
     ```
     {
@@ -89,18 +95,27 @@
 
 - Users
     - URL: `https://tooth-tracker.cyclic.app/admin/users`
+    - Method: GET
     - Parameters: none
     - Response: `[users data...]`
 
 - Delete a User
     - URL: `https://tooth-tracker.cyclic.app/admin/deleteuser/:id`
+    - Method: DELETE
     - Parameters: userId as params
     - Responses
         - 404 (Not Found): `{msg: User does not exist}`
         - 200 (Ok): `{msg: User deletion successful}`
 
+- Get all slots
+    - URL: `https://tooth-tracker.cyclic.app/admin/allSlots`
+    - Method: GET
+    - Parameters: none
+    - Response: `[all slots data...]`
+
 - Add Provider
     - URL: `https://tooth-tracker.cyclic.app/admin/addDoctor`
+    - Method: POST
     - Parameters:
     ```
     {
@@ -116,6 +131,7 @@
 
 - Add Slot
     - URL: `https://tooth-tracker.cyclic.app/admin/addSlot`
+    - Method: POST
     - Parameters: 
     ```
     {
@@ -130,6 +146,7 @@
 - DB Operations
     - **Important** - This operation has access to complete database, be careful while using this route
     - URL: `https://tooth-tracker.cyclic.app/admin/query`
+    - Method: POST
     - Parameters:
     ```
     {
