@@ -206,46 +206,46 @@ var ScheduleSystem = /** @class */ (function () {
         // this.Payments.push(payment)
         // return payment
     };
+    ScheduleSystem.prototype.calculatecost = function (slot) {
+        var time = Math.ceil(slot.duration / 60);
+        var pricetime = time === pricebytime.ONE ? priceValuebytime.ONE : time === pricebytime.TWO ? priceValuebytime.TWO : priceValuebytime.THREE;
+        var cat = slot.sub_category;
+        var costforcat = cat === PriceBySubCat.teethCleaning ? priceOf.teethCleaning : cat === PriceBySubCat.teethWhitening ? priceOf.teethWhitening : priceOf.teethBreak;
+        var totalcost = pricetime + costforcat;
+        return totalcost;
+    };
     return ScheduleSystem;
 }());
 exports.ScheduleSystem = ScheduleSystem;
-/*
-
-// let system=new ScheduleSystem();
-
+var system = new ScheduleSystem();
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);
-
 // let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");
 // console.log(slot);
+// const cost = system.calculatecost(slot);
+// console.log(cost);
 // let slots2=system.initializeSlot("cleaning","teethWhitening","13:30 pm","1 hr");
 // let slots3=system.initializeSlot("cleaning","teethCleaning","14:30 pm","1 hr");
-
 // console.log(system.slotsof());
-
 // let meet=system.innitializeMeeting("cleaning","teethWhitening",1)
 // console.log("meet",meet);
-
 // console.log("slots",system.slotsof());
-
 // let opa=system.initializePayment(1)
 // console.log(opa);
-
-   let id=this.slots.length+1;
-    const currentDate=new Date();
-    let dur=duration.split(" ");
-    let dura=parseInt(dur[0])*60
-    console.log(dura);
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const day = currentDate.getDate();
-    const date=`${day}-${month}-${year}`
-    let startof=start.split(" ");
-    let conertime=this.convertTime(startof[0])
-    const end=start.split(":");
-    const hr=parseInt(end[0])*60;
-    const mint=parseInt(end[1]);
-    const hrOfend=Math.floor((hr+mint+dura)/60);
-    const hrofmint=Math.floor((hr+mint+dura)%60);
-    let end=this.convertTime(`${hrOfend}:${hrofmint}`);
-    */
+//  let id=this.slots.length+1;
+//   const currentDate=new Date();
+//   let dur=duration.split(" ");
+//   let dura=parseInt(dur[0])*60
+//   console.log(dura);
+//   const year = currentDate.getFullYear();
+//   const month = currentDate.getMonth() + 1;
+//   const day = currentDate.getDate();
+//   const date=`${day}-${month}-${year}`
+//   let startof=start.split(" ");
+//   let conertime=this.convertTime(startof[0])
+//   const end=start.split(":");
+//   const hr=parseInt(end[0])*60;
+//   const mint=parseInt(end[1]);
+//   const hrOfend=Math.floor((hr+mint+dura)/60);
+//   const hrofmint=Math.floor((hr+mint+dura)%60);
+//   let end=this.convertTime(`${hrOfend}:${hrofmint}`); 

@@ -269,6 +269,16 @@ class ScheduleSystem{
     // this.Payments.push(payment)
     // return payment
   }
+ 
+   calculatecost(slot:Slot){
+     let time= Math.ceil(slot.duration/60);
+     const pricetime=time===pricebytime.ONE ? priceValuebytime.ONE :time===pricebytime.TWO ? priceValuebytime.TWO : priceValuebytime.THREE
+     const cat=slot.sub_category;
+     const costforcat=cat===PriceBySubCat.teethCleaning ? priceOf.teethCleaning :cat===PriceBySubCat.teethWhitening ? priceOf.teethWhitening : priceOf.teethBreak
+    const totalcost=pricetime+costforcat;
+    return totalcost
+   }
+
  }
 
 
@@ -276,15 +286,17 @@ export{ScheduleSystem}
 
 
 
-/*
 
-// let system=new ScheduleSystem();
+
+let system=new ScheduleSystem();
 
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);
 
 // let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");
 // console.log(slot);
+// const cost = system.calculatecost(slot);
+// console.log(cost);
 // let slots2=system.initializeSlot("cleaning","teethWhitening","13:30 pm","1 hr");
 // let slots3=system.initializeSlot("cleaning","teethCleaning","14:30 pm","1 hr");
 
@@ -298,21 +310,21 @@ export{ScheduleSystem}
 // let opa=system.initializePayment(1)
 // console.log(opa);
 
-   let id=this.slots.length+1;
-    const currentDate=new Date();
-    let dur=duration.split(" ");
-    let dura=parseInt(dur[0])*60
-    console.log(dura);
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const day = currentDate.getDate();
-    const date=`${day}-${month}-${year}`
-    let startof=start.split(" ");
-    let conertime=this.convertTime(startof[0])
-    const end=start.split(":");
-    const hr=parseInt(end[0])*60;
-    const mint=parseInt(end[1]);
-    const hrOfend=Math.floor((hr+mint+dura)/60);
-    const hrofmint=Math.floor((hr+mint+dura)%60);
-    let end=this.convertTime(`${hrOfend}:${hrofmint}`); 
-    */
+//  let id=this.slots.length+1;
+//   const currentDate=new Date();
+//   let dur=duration.split(" ");
+//   let dura=parseInt(dur[0])*60
+//   console.log(dura);
+//   const year = currentDate.getFullYear();
+//   const month = currentDate.getMonth() + 1;
+//   const day = currentDate.getDate();
+//   const date=`${day}-${month}-${year}`
+//   let startof=start.split(" ");
+//   let conertime=this.convertTime(startof[0])
+//   const end=start.split(":");
+//   const hr=parseInt(end[0])*60;
+//   const mint=parseInt(end[1]);
+//   const hrOfend=Math.floor((hr+mint+dura)/60);
+//   const hrofmint=Math.floor((hr+mint+dura)%60);
+//   let end=this.convertTime(`${hrOfend}:${hrofmint}`); 
+

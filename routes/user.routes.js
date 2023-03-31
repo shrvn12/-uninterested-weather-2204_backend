@@ -245,4 +245,25 @@ userRouter.post('/newMeeting',(req, res) => {
     })
 })
 
+userRouter.get('/getCost/:slotId',(req, res) => {
+    const slotId = req.params.slotId;
+
+    if(!slotId){
+        return res.status(401).send({msg:'Please provide slotId as parameter'});
+    }
+
+    connection.query(`select * from slots where id = ${slotId}`,(err, rows) => {
+        if(err){
+            console.log(err);
+            return res.status(500).send({msg: `Something went wrong, please try again`,err: err.message});
+        }
+        else if(!rows.length){
+            return res.status(404).send({msg:`Slot not available`});
+        }
+
+        const cost = system.calculatecost(rows[0]);
+        return res.status(200).send({cost});
+    })
+})
+
 module.exports = {userRouter,connection};

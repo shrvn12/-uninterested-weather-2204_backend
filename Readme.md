@@ -59,6 +59,13 @@
     - Parameters: none
     - Response: `[slot's data...]`
 
+- Get slot Cost
+    - URL: `https://tooth-tracker.cyclic.app/getCost/:sLotId`
+    - Parameters: Slot Id as params
+    - Responses:
+        - 404 (Not Found): `{msg: 'Slot not available'}`
+        - 200 (Ok): `{cost: 'cost'}`
+
 - Book Appointment
     - URL: `https://tooth-tracker.cyclic.app/newMeeting`
     - Parameters:
