@@ -80,7 +80,6 @@ userRouter.get("/auth/github",async(req,res)=>{
     const {code}=req.query
 
     console.log(code)
-    console.log(`My Server`);
 
     const getToken = async () => {
         try {
@@ -200,12 +199,12 @@ userRouter.post('/newMeeting',(req, res) => {
     const token = req.headers.authorization;
     const user = jwt.verify(token,process.env.key);
 
-    if(!data.sub_category || !data.category || !data.slotId){
-        return res.status(401).send({msg:`Please provide category, sub category and slotId`});
+    if(!data.sub_category || !data.category || !data.slotId || !data.doctorId){
+        return res.status(401).send({msg:`Please provide category, sub_category, slotId and doctorId`});
     }
 
-    connection.query(`select * from slots where id = ${data.slotId}`,(err, rows) => {
-
+    connection.query(`select * from slots where id = ${data.slotId} and isbooked = 0`,(err, rows) => {
+    
         if(err){
             console.log(err);
             return res.status(500).send({msg: `Something went wrong`,err: err.message});
@@ -219,9 +218,11 @@ userRouter.post('/newMeeting',(req, res) => {
             return res.status(409).send({msg:`This slot is not available for provided category or sub_category`})
         }
 
+        
+
         const slot = rows[0];
 
-        connection.query(`insert into meetings (userId, slotId, category, sub_category) values ('${user.id}', ${slot.id}, '${data.category}', '${data.sub_category}')`,(err, rows) => {
+        connection.query(`insert into meetings (userId, slotId, doctorId, category, sub_category) values ('${user.id}', ${slot.id}, '${data.doctorId}', '${data.category}', '${data.sub_category}')`,(err, rows) => {
 
             if(err){
                 console.log(err);

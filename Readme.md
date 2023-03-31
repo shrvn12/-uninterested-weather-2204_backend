@@ -3,8 +3,8 @@
 
 ## 1. Overview
 
-Basic API endpoint = `https://tooth-tracker.cyclic.app/`.
-All requests must be secure, i.e. `https`, not `http`.
+- Basic API endpoint = `https://tooth-tracker.cyclic.app/`.
+- All requests must be secure, i.e. `https`, not `http`.
 
 ## 2. Authentication
 - This API uses Role based authrization.
@@ -19,11 +19,11 @@ All requests must be secure, i.e. `https`, not `http`.
     - Parameters:
     ```
     {
-        name: string,
-        date_of_birth: YYYY-MM-DD,
-        phone: 123456789 (7 characters or more),
-        email: string,
-        password: user_password (5 characters or more),
+        name: string (required),
+        date_of_birth: YYYY-MM-DD (required),
+        phone: 123456789 (7 characters or more) (required),
+        email: string (required),
+        password: user_password (5 characters or more) (required),
         role: (admin or default user)
     }
     ```
@@ -39,8 +39,8 @@ All requests must be secure, i.e. `https`, not `http`.
     - Parameters:
     ```
     {
-        email: string,
-        password: user_password (5 characters or more)
+        email: string (required),
+        password: user_password (5 characters or more) (required)
     }
     ```
     - Responses
@@ -64,9 +64,10 @@ All requests must be secure, i.e. `https`, not `http`.
     - Parameters:
     ```
     {
-        category: string,
-        sub_category: string,
-        slotId: number
+        category: string (required),
+        sub_category: string (required),
+        slotId: number (required),
+        doctorId: number (required)
     }
     ```
     - Responses
@@ -96,10 +97,10 @@ All requests must be secure, i.e. `https`, not `http`.
     - Parameters:
     ```
     {
-        name: string,
-        speciality: string,
-        sub_speciality: string,
-        desgree: string
+        name: string (required),
+        speciality: string (required),
+        sub_speciality: string (required),
+        degree: string (required)
     }
     ```
     - Responses:
@@ -111,11 +112,11 @@ All requests must be secure, i.e. `https`, not `http`.
     - Parameters: 
     ```
     {
-        category: string,
-        sub_category: string,
-        date: YYYY-MM-DD,
-        start: HH:MM (24Hrs clock),
-        duration: minutes (number)
+        category: string (required),
+        sub_category: string (required),
+        date: YYYY-MM-DD, (required)
+        start: HH:MM (24Hrs clock) (required),
+        duration: minutes (number) (required)
     }
     ```
 

@@ -203,7 +203,8 @@ class ScheduleSystem{
     console.log(`${date} ${start}`);
     const Start = new Date(`${date} ${start}`);
     console.log(Start);
-    const end = new Date(new Date().setMinutes(new Date().getMinutes() + duration));
+    let end = new Date(`${date} ${start}`)
+    end.setMinutes(end.getMinutes() + duration);
     let slot = new Slot(this.slots.length+1, new Date(date), category, sub_category, duration, Start, end);
     this.slots.push(slot);
     return slot

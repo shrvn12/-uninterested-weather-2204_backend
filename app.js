@@ -139,7 +139,8 @@ var ScheduleSystem = /** @class */ (function () {
         console.log("".concat(date, " ").concat(start));
         var Start = new Date("".concat(date, " ").concat(start));
         console.log(Start);
-        var end = new Date(new Date().setMinutes(new Date().getMinutes() + duration));
+        var end = new Date("".concat(date, " ").concat(start));
+        // end.setMinutes(end.getMinutes() + duration);
         var slot = new Slot(this.slots.length + 1, new Date(date), category, sub_category, duration, Start, end);
         this.slots.push(slot);
         return slot;
