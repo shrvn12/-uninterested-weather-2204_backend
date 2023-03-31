@@ -44,7 +44,7 @@ All requests must be secure, i.e. `https`, not `http`.
     }
     ```
     - Responses
-        - 200 (Ok): `{msg: Login successful as 'role', role: 'role'}`
+        - 200 (Ok): `{msg: Login successful as 'role', token: token, role: 'role'}`
         - 401 (account does not exists): `{"msg": "Account does not exists"}`
         - 401 (missing credentails): `{"msg": "Please provide, e-mail & Password"}`
         - 411 (invalid credentails): `{"msg": "Password must be of length 5"}`
