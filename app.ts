@@ -275,13 +275,15 @@ export{ScheduleSystem}
 
 
 
-let system=new ScheduleSystem();
+/*
+
+// let system=new ScheduleSystem();
 
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);
 
-let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");
-console.log(slot);
+// let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");
+// console.log(slot);
 // let slots2=system.initializeSlot("cleaning","teethWhitening","13:30 pm","1 hr");
 // let slots3=system.initializeSlot("cleaning","teethCleaning","14:30 pm","1 hr");
 
@@ -295,8 +297,6 @@ console.log(slot);
 // let opa=system.initializePayment(1)
 // console.log(opa);
 
-
-/*
    let id=this.slots.length+1;
     const currentDate=new Date();
     let dur=duration.split(" ");
@@ -313,4 +313,5 @@ console.log(slot);
     const mint=parseInt(end[1]);
     const hrOfend=Math.floor((hr+mint+dura)/60);
     const hrofmint=Math.floor((hr+mint+dura)%60);
-    let end=this.convertTime(`${hrOfend}:${hrofmint}`); */
+    let end=this.convertTime(`${hrOfend}:${hrofmint}`); 
+    */

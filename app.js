@@ -136,7 +136,6 @@ var ScheduleSystem = /** @class */ (function () {
         return doctor;
     };
     ScheduleSystem.prototype.initializeSlot = function (category, sub_category, duration, start, date) {
-        var dateString = "".concat(new Date().getFullYear(), "-").concat(new Date().getMonth(), "-").concat(new Date().getDate());
         console.log("".concat(date, " ").concat(start));
         var Start = new Date("".concat(date, " ").concat(start));
         console.log(Start);
@@ -209,20 +208,28 @@ var ScheduleSystem = /** @class */ (function () {
     return ScheduleSystem;
 }());
 exports.ScheduleSystem = ScheduleSystem;
-var system = new ScheduleSystem();
+/*
+
+// let system=new ScheduleSystem();
+
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);
-var slot = system.initializeSlot("cleani", "teethCleaning", 30, "16:00", "2023-03-30");
-console.log(slot);
+
+// let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");
+// console.log(slot);
 // let slots2=system.initializeSlot("cleaning","teethWhitening","13:30 pm","1 hr");
 // let slots3=system.initializeSlot("cleaning","teethCleaning","14:30 pm","1 hr");
+
 // console.log(system.slotsof());
+
 // let meet=system.innitializeMeeting("cleaning","teethWhitening",1)
 // console.log("meet",meet);
+
 // console.log("slots",system.slotsof());
+
 // let opa=system.initializePayment(1)
 // console.log(opa);
-/*
+
    let id=this.slots.length+1;
     const currentDate=new Date();
     let dur=duration.split(" ");
@@ -239,4 +246,5 @@ console.log(slot);
     const mint=parseInt(end[1]);
     const hrOfend=Math.floor((hr+mint+dura)/60);
     const hrofmint=Math.floor((hr+mint+dura)%60);
-    let end=this.convertTime(`${hrOfend}:${hrofmint}`); */
+    let end=this.convertTime(`${hrOfend}:${hrofmint}`);
+    */

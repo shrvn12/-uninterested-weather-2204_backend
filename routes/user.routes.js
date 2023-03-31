@@ -75,6 +75,104 @@ userRouter.post('/login',loginvalidator ,(req, res) => {
     })
 })
 
+userRouter.get("/auth/github",async(req,res)=>{
+
+    const {code}=req.query
+
+    console.log(code)
+    console.log(`My Server`);
+
+    const getToken = async () => {
+        try {
+            let token = await fetch(" https://github.com/login/oauth/access_token",{
+                    method:"POST",
+                    headers:{
+                            "Content-Type":"application/json",
+                            Accept:"application/json"
+                    },
+                    body:JSON.stringify({
+                        client_id:process.env.CLIENT_ID,
+                        client_secret:process.env.CLIENT_SECRET,
+                        code:code
+                    })
+                })
+
+            token = await token.json();
+
+            getUserinfo(token);
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({msg:`Something went wrong`, error: error.message});
+        }
+    }
+
+    const getUserinfo = async (token) => {
+        try {
+            let userInfo = await fetch("https://api.github.com/user",{
+                    headers:{
+                        Authorization: `Bearer ${token.access_token}`
+                    }
+                })
+            
+            userInfo = await userInfo.json();
+
+            console.log(userInfo);
+            res.cookie("token",token, "username",userInfo.name);
+            if(token.access_token){
+                return res.status(200).send({msg: `Login Successful`, token, userInfo});
+            }
+            else{
+                res.status(500).send({msg:`Login Failed`, token, userInfo});
+            }
+
+        } catch (error) {
+            console.log(error);
+
+            return res.status(500).send({msg: `Something went wrong`, error: error.message})
+        }
+
+    //     const userInfo = await fetch("https://api.github.com/user",{
+    //     headers:{
+    //         Authorization: `Bearer ${accessToken.access_token}`
+    //     }
+    // }).then((res)=>res.json())
+    // console.log(userDetails)
+    // console.log(Token)
+    // res.cookie("token",Token,"username",userDetails.name)
+    // res.send("signup progress")
+    }
+
+    getToken();
+
+    // ------------------------------------------------------------------------
+
+    // const accessToken=await fetch(" https://github.com/login/oauth/access_token",{
+    //     method:"POST",
+    //     headers:{
+    //             "Content-Type":"application/json",
+    //             Accept:"application/json"
+    //     },
+    //     body:JSON.stringify({
+    //         client_id:process.env.CLIENT_ID,
+    //         client_secret:process.env.CLIENT_SECRET,
+    //         code:code
+    //     })
+    // }).then((res)=>res.json())
+    // console.log(accessToken)
+    // const Token=accessToken.access_token
+    // const userDetails=await fetch("https://api.github.com/user",{
+    //     headers:{
+    //         Authorization: `Bearer ${accessToken.access_token}`
+    //     }
+    // }).then((res)=>res.json())
+    // console.log(userDetails)
+    // console.log(Token)
+    // res.cookie("token",Token,"username",userDetails.name)
+    // res.send("signup progress")
+    
+})
+
 userRouter.get('/slots',(req, res) => {
     connection.query('select * from slots where isbooked = 0',(err, rows, fields) => {
         if(err){
