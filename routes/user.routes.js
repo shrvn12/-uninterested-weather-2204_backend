@@ -121,34 +121,34 @@ userRouter.get("/auth/github",async(req,res)=>{
             console.log(userInfo);
             res.cookie("token",token, "username",userInfo.name);
             if(token.access_token){
-                res.status(200).send({msg: `Login Successful`, token, userInfo});
-                // connection.query(`select * from users where email = '${userInfo.email}'`,async (err, rows) => {
-                //     if(err){
-                //         console.log(err);
-                //         return res.status(500).send({msg: `Something went wrong, please try again`,err: err.message});
-                //     }
-                //     if(!rows.length){
-                //         connection.query(`insert into users (name, date_of_birth, phone, email, password, role, Github) values ('${userInfo.name}', 'null', 'null', '${userInfo.email}', 'null', 'user', '${userInfo.login}')`,() => {
-                //             if(err){
-                //                 console.log(err);
-                //                 return res.status(500).send({msg: `Something went wrong, please try again`,err: err.message});
-                //             }
-                //             const payload = {
-                //                 id: rows.insertId,
-                //                 name: userInfo.name,
-                //                 email: userInfo.email,
-                //                 role: 'user',
-                //                 Github: userInfo.login
-                //             }
-                //             const token = jwt.sign(payload, process.env.key);
-                //             return res.status(200).send({msg: 'Login SUccessful as user', token, Github: userInfo.login});
-                //         })
-                //     }
-                //     else{
-                //         const token = jwt.sign(rows[0], process.env.key);
-                //         return res.status(200).send({msg:'Login Successful as user', token})
-                //     }
-                // })
+                // res.status(200).send({msg: `Login Successful`, token, userInfo});
+                connection.query(`select * from users where email = '${userInfo.email}'`,async (err, rows) => {
+                    if(err){
+                        console.log(err);
+                        return res.status(500).send({msg: `Something went wrong, please try again`,err: err.message});
+                    }
+                    if(!rows.length){
+                        connection.query(`insert into users (name, date_of_birth, phone, email, password, role, Github) values ('${userInfo.name}', 'null', 'null', '${userInfo.email}', 'null', 'user', '${userInfo.login}')`,() => {
+                            if(err){
+                                console.log(err);
+                                return res.status(500).send({msg: `Something went wrong, please try again`,err: err.message});
+                            }
+                            const payload = {
+                                id: rows.insertId,
+                                name: userInfo.name,
+                                email: userInfo.email,
+                                role: 'user',
+                                Github: userInfo.login
+                            }
+                            const token = jwt.sign(payload, process.env.key);
+                            return res.status(200).send({msg: 'Login SUccessful as user', token, Github: userInfo.login});
+                        })
+                    }
+                    else{
+                        const token = jwt.sign(rows[0], process.env.key);
+                        return res.status(200).send({msg:'Login Successful as user', token})
+                    }
+                })
             }
             else{
                 res.status(500).send({msg:`Login Failed`, token, userInfo});
