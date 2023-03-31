@@ -95,7 +95,7 @@ userRouter.get('/doctors',(req, res) => {
     })
 })
 
-userRouter.use(authenticate("user"));
+// userRouter.use(authenticate("user"));
 
 userRouter.post('/newMeeting',(req, res) => {
     const data = req.body;
