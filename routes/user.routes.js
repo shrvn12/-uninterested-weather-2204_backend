@@ -63,7 +63,6 @@ userRouter.post("/register", registrationValidator, async (req, res) => {
           data.phone,
           password
         );
-        console.log(user);
         connection.query(
           `insert into users (name, date_of_birth, phone, email, password, role) values ('${data.name}', '${data.date_of_birth}', '${data.phone}', '${data.email}', '${password}', '${data.role}')`,
           (err, rows, fields) => {
@@ -83,6 +82,7 @@ userRouter.post("/register", registrationValidator, async (req, res) => {
                 subject:"Welcome message",
                 text:"welcome to app"
               }
+              console.log(mail);
               transporter.sendMail(mail,(err,res)=>{
                 if(err){
                   console.log(err);
