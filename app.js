@@ -1,12 +1,9 @@
-"use strict";
 //user
 //Name
 //date_of_birth
 //Number
 //Email
 //ID
-exports.__esModule = true;
-exports.ScheduleSystem = void 0;
 var USER = /** @class */ (function () {
     function USER(ID, name, date_of_birth, mobile, email, password) {
         this.ID = ID;
@@ -196,16 +193,6 @@ var ScheduleSystem = /** @class */ (function () {
         //  let cost= bookmeet[0].calculatecost(bookslot[0])
         //  return cost
     };
-    ScheduleSystem.prototype.initializePayment = function (id) {
-        var cost = this.checkAloteeSlotCost(id);
-        var bookslot = this.Meetings.filter(function (item) { return item.userId == id; });
-        var bookid = bookslot[0].slotID;
-        var payID = this.Payments.length + 1;
-        // let payment=new Peyment(id,bookid,payID,cost,"CARD");
-        // payment.ispaid=true;
-        // this.Payments.push(payment)
-        // return payment
-    };
     ScheduleSystem.prototype.calculatecost = function (slot) {
         var time = Math.ceil(slot.duration / 60);
         var pricetime = time === pricebytime.ONE ? priceValuebytime.ONE : time === pricebytime.TWO ? priceValuebytime.TWO : priceValuebytime.THREE;
@@ -214,10 +201,21 @@ var ScheduleSystem = /** @class */ (function () {
         var totalcost = pricetime + costforcat;
         return totalcost;
     };
+    ScheduleSystem.prototype.initializePayment = function (id, payType, cost) {
+        var bookslot = this.Meetings.filter(function (item) { return item.userId == id; });
+        var bookid = bookslot[0].slotID;
+        var payID = this.Payments.length + 1;
+        var payment = new Peyment(id, bookid, payID, cost, payType);
+        payment.ispaid = true;
+        this.Payments.push(payment);
+        return payment;
+    };
     return ScheduleSystem;
 }());
-exports.ScheduleSystem = ScheduleSystem;
-var system = new ScheduleSystem();
+
+module.exports = {ScheduleSystem}
+// export{ScheduleSystem}
+// let system=new ScheduleSystem();
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);
 // let slot=system.initializeSlot("cleani","teethCleaning",30,"16:00","2023-03-30");

@@ -287,7 +287,7 @@ initializePayment(id:number,payType:string,cost:number){
 
 
 
-let system=new ScheduleSystem();
+// let system=new ScheduleSystem();
 
 // let users=system.initializeUser("yunus",new Date("2003-08-12"),"yunus@gmail.com",969510765,"12345");
 // console.log(users);

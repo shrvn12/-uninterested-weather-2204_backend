@@ -12,16 +12,7 @@ app.use(express.json());
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
-
-const mconnection=mongoose.connect(process.env.mongoUrl)
-
 app.listen(process.env.port,async () => {
-    try {
-        await mconnection
-        console.log('mongo connected')
-    } catch (error) {
-        console.log("error in mongo")
-    }
     connection.connect((err) => {
         if(err){
             console.log(`error while connecting to DB`);
@@ -32,4 +23,3 @@ app.listen(process.env.port,async () => {
     });
     console.log(`running at ${process.env.port}`);
 })
-
