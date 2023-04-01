@@ -83,12 +83,12 @@ userRouter.post("/register", registrationValidator, async (req, res) => {
                 text:"welcome to app"
               }
               console.log(mail);
-              transporter.sendMail(mail,(err,res)=>{
+              transporter.sendMail(mail,(err,response)=>{
                 if(err){
                   console.log(err);
                 }
                 else{
-                  console.log(res);
+                  console.log(response);
                 }
               })
               return res
