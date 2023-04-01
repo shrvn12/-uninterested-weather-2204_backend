@@ -89,6 +89,23 @@
         - 404 (Not found) : `{msg: Slot Not available}`
         - 409 (Conflicting categories): `{"msg": "This slot is not available for provided category or sub_category"}`
 
+- Save paymanet info to database
+    - URL: `https://tooth-tracker.cyclic.app/pay`
+    - Method: POST
+    - Parameters:
+    ```
+    {
+        userId: Id (number),
+        slotId: Id (number),
+        amount: amount (number),
+        method: any one of (cash, card, netbanking, upi)
+    }
+    ```
+    - Reaponses
+        - 401 (Missing Credentials): `{ msg: 'Please provide userId, slotId, amount and method' }`
+        - 401 (Missing Credentials): `{msg: "Please select method from cash, card, upi and netbanking",}`
+        - 200 (OK): `{ msg: "Transaction saved to DB successfully", rows }`
+
 ## 3. Admin
 
 **Note**- You need to login with admin account to perform below operations.
@@ -112,6 +129,12 @@
     - Method: GET
     - Parameters: none
     - Response: `[all slots data...]`
+
+- Get all meetings
+    - URL: `https://tooth-tracker.cyclic.app/admin/allMeeetings`
+    - Method: GET
+    - Parameters: none
+    - Response: `[all meetings data...]`
 
 - Add Provider
     - URL: `https://tooth-tracker.cyclic.app/admin/addDoctor`

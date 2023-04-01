@@ -40,7 +40,17 @@ adminRouter.get('/allSLots',async (req, res) => {
             console.log(error);
             return res.status(500).send({msg: `Something went wrong`, err: err.msg});
         }
-        res.send(rows);
+        res.status(200).send(rows);
+    })
+})
+
+adminRouter.get('/allMeetings', async (req, res) => {
+    connection.query('select * from meetings',(error, rows) => {
+        if(error){
+            console.log(error);
+            return res.status(500).send({msg: `Something went wrong`, err: err.msg});
+        }
+        res.status(200).send(rows);
     })
 })
 

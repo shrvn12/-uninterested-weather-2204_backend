@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
 const { loginvalidator } = require("../middlewares/login.validator");
 const registrationValidator = require("../middlewares/registration.validator");
 require("dotenv").config();
@@ -13,6 +14,16 @@ const passport = require("../configs/gooleAuth");
 
 const userRouter = express.Router();
 const system = new ScheduleSystem();
+
+var transporter = nodemailer.createTransport({
+  service:"gmail",
+  host:"smtp.gmail.com",
+  secure:false,
+  auth:{
+    user:process.env.from_email,
+    pass:process.env.email_password
+  }
+});
 
 userRouter.get("/", (req, res) => {
   res.status(200).send({ msg: `Basic API endpoint` });
@@ -64,7 +75,22 @@ userRouter.post("/register", registrationValidator, async (req, res) => {
                   msg: `Something went wrong, please try again`,
                   err: err.message,
                 });
-            } else {
+            }
+            else {
+              const mail = {
+                from:process.env.from_email,
+                to: req.body.email,
+                subject:"Welcome message",
+                text:"welcome to app"
+              }
+              transporter.sendMail(mail,(err,res)=>{
+                if(err){
+                  console.log(err);
+                }
+                else{
+                  console.log(res);
+                }
+              })
               return res
                 .status(201)
                 .send({
