@@ -90,14 +90,15 @@ userRouter.post("/register", registrationValidator, async (req, res) => {
                 else{
                   console.log(response);
                 }
-              })
-              return res
+                return res
                 .status(201)
                 .send({
                   msg: `Registration successful as ${data.role}`,
                   role: data.role,
                   rows,
                 });
+              })
+
             }
           }
         );
