@@ -414,6 +414,7 @@ userRouter.get("/getCost/:slotId", (req, res) => {
 
 userRouter.post("/pay", (req, res) => {
   const data = req.body;
+  const token = req.headers.authorization
   if (!data.userId || !data.slotId || !data.amount || !data.method) {
     return res
       .status(401)
@@ -443,9 +444,30 @@ userRouter.post("/pay", (req, res) => {
             err: err.message,
           });
       }
-      res
+
+      const user = jwt.verify(token, process.env.key);
+      console.log(user);
+      const mail = {
+        from:process.env.from_email,
+        to: user.email,
+        subject:"Slot confirmed",
+        text:`Your slot has been booked with slotId ${data.slotId}`
+      }
+
+      transporter.sendMail(mail,(err,response)=>{
+        if(err){
+          console.log(err);
+        }
+        else{
+          console.log(response);
+        }
+
+        return res
         .status(200)
         .send({ msg: "Transaction saved to DB successfully", rows });
+        
+      })
+
     }
   );
 });
