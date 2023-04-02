@@ -35,6 +35,7 @@
         - 411 (invalid credentails): `{"msg": "Password must be of length 5"}`
         - 422 (invalid credentails): `{"msg": "Please provide valid phone number"}`
 
+
 - Login
     - URL: `https://tooth-tracker.cyclic.app/login`
     - Method: POST
@@ -51,17 +52,20 @@
         - 401 (missing credentails): `{"msg": "Please provide, e-mail & Password"}`
         - 411 (invalid credentails): `{"msg": "Password must be of length 5"}`
 
+
 - Check Providers
     - URL: `https://tooth-tracker.cyclic.app/doctors`
     - Method: GET
     - Parameters: none
     - Response: `[doctor's data...]`
 
+
 - Check Slots
     - URL: `https://tooth-tracker.cyclic.app/slots`
     - Method: GET
     - Parameters: none
     - Response: `[slot's data...]`
+
 
 - Get slot Cost
     - URL: `https://tooth-tracker.cyclic.app/getCost/:sLotId`
@@ -70,6 +74,7 @@
     - Responses:
         - 404 (Not Found): `{msg: 'Slot not available'}`
         - 200 (Ok): `{cost: 'cost'}`
+
 
 - Book Appointment
     - URL: `https://tooth-tracker.cyclic.app/newMeeting`
@@ -89,15 +94,33 @@
         - 404 (Not found) : `{msg: Slot Not available}`
         - 409 (Conflicting categories): `{"msg": "This slot is not available for provided category or sub_category"}`
 
+
+- Payment
+    - **Note**: This route is integrated with stripe payment gateway
+    - URL: `https://tooth-tracker.cyclic.app/payment`
+    - Mothod: POST
+    - Parameters:
+    ```
+    {
+        amount:1000, (required)
+        quantity:1, (required)
+        name:abcd (required)
+    }
+    ```
+    - Responses:
+        - 200 (Ok): `{"id": "************************************************"}`
+        - 401 (Missing Credentials): `{"msg": "Please provide name, quanitity and amount of product"}`
+
+
 - Save paymanet info to database
     - URL: `https://tooth-tracker.cyclic.app/pay`
     - Method: POST
     - Parameters:
     ```
     {
-        userId: Id (number),
-        slotId: Id (number),
-        amount: amount (number),
+        userId: Id (number, required),
+        slotId: Id (number, required),
+        amount: amount (number, required),
         method: any one of (cash, card, netbanking, upi)
     }
     ```
@@ -105,6 +128,7 @@
         - 401 (Missing Credentials): `{ msg: 'Please provide userId, slotId, amount and method' }`
         - 401 (Missing Credentials): `{msg: "Please select method from cash, card, upi and netbanking",}`
         - 200 (OK): `{ msg: "Transaction saved to DB successfully", rows }`
+
 
 ## 3. Admin
 
@@ -116,6 +140,7 @@
     - Parameters: none
     - Response: `[users data...]`
 
+
 - Delete a User
     - URL: `https://tooth-tracker.cyclic.app/admin/deleteuser/:id`
     - Method: DELETE
@@ -124,17 +149,20 @@
         - 404 (Not Found): `{msg: User does not exist}`
         - 200 (Ok): `{msg: User deletion successful}`
 
+
 - Get all slots
     - URL: `https://tooth-tracker.cyclic.app/admin/allSlots`
     - Method: GET
     - Parameters: none
     - Response: `[all slots data...]`
 
+
 - Get all meetings
     - URL: `https://tooth-tracker.cyclic.app/admin/allMeetings`
     - Method: GET
     - Parameters: none
     - Response: `[all meetings data...]`
+
 
 - Add Provider
     - URL: `https://tooth-tracker.cyclic.app/admin/addDoctor`
@@ -152,6 +180,7 @@
         - 401 (Missing credentials): `{msg:'Please provide name ,speciality and degree'}`
         - 200 (Ok): `{msg: 'Doctor registration successful'}`
 
+
 - Add Slot
     - URL: `https://tooth-tracker.cyclic.app/admin/addSlot`
     - Method: POST
@@ -165,6 +194,9 @@
         duration: minutes (number) (required)
     }
     ```
+    - Responses:
+        - 200 (Ok): `{msg: 'Slot added'}`
+        - 401 (Missing credentials): `{msg: 'Please provide category sub_category, date (YYYY-MM-DD), start(HH:MM, 24hrs cLock) and duration(in minutes)'}`
 
 - DB Operations
     - **Important** - This operation has access to complete database, be careful while using this route
