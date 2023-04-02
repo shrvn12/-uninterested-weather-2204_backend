@@ -3,6 +3,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require('nodemailer');
+const stripe = require("stripe")("sk_test_51MreRESAewYLUjTauTI6fim3a3Zh0xJYHUbwsNpHfVbVIicJ2rymKrb2tRaAlSeEHMJ4lv5rYHAMp2luuzD1HG9w00pqpYgQWr");
 const { loginvalidator } = require("../middlewares/login.validator");
 const registrationValidator = require("../middlewares/registration.validator");
 require("dotenv").config();
@@ -447,6 +448,34 @@ userRouter.post("/pay", (req, res) => {
         .send({ msg: "Transaction saved to DB successfully", rows });
     }
   );
+});
+
+userRouter.post("/payment", async (req, res) => {
+  const product = req.body;
+  if(!product.name || !product.quantity || !product.amount){
+    return res.status(401).send({msg:`Please provide name, quanitity and amount of product`})
+  }
+  const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+          {
+              price_data: {
+                  currency: "inr",
+                  product_data: {
+                     name:product.name
+                  },
+                  unit_amount: product.amount ,
+              },
+              quantity: product.quantity,
+          },
+      ],
+      mode: "payment",
+      success_url: "https://gorgeous-kringle-2552f9.netlify.app/",
+      cancel_url: `https://gorgeous-kringle-2552f9.netlify.app/cancel.html`,
+      // success_url: `${YOUR_DOMAIN}/success.html`,
+      // cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+  });
+  res.json({ id: session.id });
 });
 
 module.exports = { userRouter, connection };
