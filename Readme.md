@@ -131,7 +131,7 @@
     - Response: `[all slots data...]`
 
 - Get all meetings
-    - URL: `https://tooth-tracker.cyclic.app/admin/allMeeetings`
+    - URL: `https://tooth-tracker.cyclic.app/admin/allMeetings`
     - Method: GET
     - Parameters: none
     - Response: `[all meetings data...]`
