@@ -7,10 +7,10 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({origin: "*"}));
+app.use(cors());
 app.use(express.json());
 
-app.use('/', userRouter);
+app.use(userRouter);
 app.use('/admin', adminRouter);
 app.listen(process.env.port,async () => {
     connection.connect((err) => {
