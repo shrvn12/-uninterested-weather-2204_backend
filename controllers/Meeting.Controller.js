@@ -2,7 +2,7 @@
 
 const {MeetingModel}=require("../models/Meeting.model");
 const { body, validationResult } = require("express-validator");
-const {SlotModel}=require("../models/Slot.model")
+const {SlotModel}=require('../models/Slot.model')
 const stripe = require("stripe")("sk_test_51MreRESAewYLUjTauTI6fim3a3Zh0xJYHUbwsNpHfVbVIicJ2rymKrb2tRaAlSeEHMJ4lv5rYHAMp2luuzD1HG9w00pqpYgQWr");
 // const {CalculateCost}=require()
 const createMeeting=async(req,res)=>{

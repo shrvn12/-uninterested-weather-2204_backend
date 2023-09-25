@@ -1,6 +1,6 @@
 
 const { body, validationResult } = require("express-validator");
-const {DoctorModel}=require("../models/Doctor.model")
+const {DoctorModel}=require('../models/Doctor.model')
 const {storage}=require("../helper/Multer");
 require('dotenv').config()
 const AddDoctor=async(req,res)=>{

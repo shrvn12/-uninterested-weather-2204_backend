@@ -1,6 +1,6 @@
 
 const { body, validationResult } = require("express-validator");
-const {SlotModel}=require("../models/Slot.model");
+const {SlotModel}=require('../models/Slot.model');
 
 const AddSlot=async(req,res)=>{
     try {

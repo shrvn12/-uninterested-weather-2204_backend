@@ -1,8 +1,7 @@
-const { userSignup,
+const {userSignup,
     userLogin,
     UserDelete,
-    UserBookedDetails,
-    getAllUser}=require("../controllers/User.controller");
+    getAllUser}=require('../controllers/User.controller');
 const express=require("express");
 const {Authentication}=require("../middlewares/Authentication")
 const UserRouter=express.Router();
@@ -34,8 +33,6 @@ UserRouter.post("/payment", async (req, res) => {
         mode: "payment",
         success_url: "https://uninterested-weather-2204-frontend.vercel.app/",
         cancel_url: `https://uninterested-weather-2204-frontend.vercel.app/cancel.html`,
-        // success_url: `${YOUR_DOMAIN}/success.html`,
-        // cancel_url: `${YOUR_DOMAIN}/cancel.html`,
     });
     res.json({ id: session.id });
   });
